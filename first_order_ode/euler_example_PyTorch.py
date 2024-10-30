@@ -4,6 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as matplotlib
 
+import os
+base_path = os.path.dirname(os.path.abspath(__file__))
+strain_path = os.path.join(base_path, 'data', 'Strain.csv')
+atrain_path = os.path.join(base_path, 'data', 'atrain.csv')
+a0_path = os.path.join(base_path, 'data', 'a0.csv')
+
 from torch import (
     nn,
     Tensor,
@@ -142,11 +148,18 @@ if __name__ == "__main__":
     F = 1.0
     
     # data
-    Strain = np.asarray(pd.read_csv('./data/Strain.csv'))[:,:,np.newaxis]
+    # Strain = np.asarray(pd.read_csv('./data/Strain.csv'))[:,:,np.newaxis]
+    # Strain = Tensor(Strain)
+    # atrain = np.asarray(pd.read_csv('./data/atrain.csv'))
+    # atrain = Tensor(atrain)
+    # a0 = np.asarray(pd.read_csv('./data/a0.csv'))[0,0]*np.ones((Strain.shape[0],1))
+    # a0 = Tensor(a0)
+    
+    Strain = np.asarray(pd.read_csv(strain_path))[:,:,np.newaxis]
     Strain = Tensor(Strain)
-    atrain = np.asarray(pd.read_csv('./data/atrain.csv'))
+    atrain = np.asarray(pd.read_csv(atrain_path))
     atrain = Tensor(atrain)
-    a0 = np.asarray(pd.read_csv('./data/a0.csv'))[0,0]*np.ones((Strain.shape[0],1))
+    a0 = np.asarray(pd.read_csv(a0_path))[0,0]*np.ones((Strain.shape[0],1))
     a0 = Tensor(a0)
 
     "-------------------------------------------------------------------------"
